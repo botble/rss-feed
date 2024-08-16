@@ -1,0 +1,11 @@
+{
+    "id": "botble/rss-feed",
+    "name": "Rss Feed",
+    "namespace": "Botble\\RssFeed\\",
+    "provider": "Botble\\RssFeed\\Providers\\RssFeedServiceProvider",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "1.1.4",
+    "description": "RSS is a web feed that allows users and applications to access updates to websites in a standardized, computer-readable format.",
+    "minimum_core_version": "7.3.0"
+}
