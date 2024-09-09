@@ -7,7 +7,6 @@ use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Botble\RssFeed\Facades\RssFeed;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Routing\Events\RouteMatched;
-use Illuminate\Support\Facades\Route;
 
 class RssFeedServiceProvider extends ServiceProvider
 {
@@ -27,9 +26,40 @@ class RssFeedServiceProvider extends ServiceProvider
             ->loadAndPublishViews();
 
         $this->app['events']->listen(RouteMatched::class, function () {
-            if (is_plugin_active('blog') && Route::has('feeds.posts')) {
-                RssFeed::addFeedLink(route('feeds.posts'), 'Posts feed');
+            if (is_plugin_active('blog')) {
+                RssFeed::addFeedLink(
+                    route('feeds.show', ['name' => 'posts']),
+                    __(':name feed', ['name' => __('Posts')])
+                );
             }
+
+            if (is_plugin_active('job-board')) {
+                RssFeed::addFeedLink(
+                    route('feeds.show', ['name' => 'jobs']),
+                    __(':name feed', ['name' => __('Jobs')])
+                );
+            }
+
+            if (is_plugin_active('real-estate')) {
+                RssFeed::addFeedLink(
+                    route('feeds.show', ['name' => 'properties']),
+                    __(':name feed', ['name' => __('Properties')])
+                );
+
+                RssFeed::addFeedLink(
+                    route('feeds.show', ['name' => 'projects']),
+                    __(':name feed', ['name' => __('Projects')])
+                );
+            }
+
+            if (is_plugin_active('ecommerce')) {
+                RssFeed::addFeedLink(
+                    route('feeds.show', ['name' => 'products']),
+                    __(':name feed', ['name' => __('Products')])
+                );
+            }
+
+            do_action('rss_feed.add_feed_link');
         });
     }
 }

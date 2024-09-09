@@ -72,7 +72,7 @@ class RssFeedController extends PublicController
                 break;
 
             case 'jobs':
-                if (! is_plugin_active('job-board')) {
+                if (! is_plugin_active('job-board') || ! class_exists(Job::class)) {
                     abort(404);
                 }
 
@@ -110,7 +110,7 @@ class RssFeedController extends PublicController
                 break;
 
             case 'properties':
-                if (! is_plugin_active('real-estate')) {
+                if (! is_plugin_active('real-estate') || ! interface_exists(PropertyInterface::class)) {
                     abort(404);
                 }
 
@@ -149,7 +149,7 @@ class RssFeedController extends PublicController
                 break;
 
             case 'projects':
-                if (! is_plugin_active('real-estate')) {
+                if (! is_plugin_active('real-estate') || ! interface_exists(ProjectInterface::class)) {
                     abort(404);
                 }
 
@@ -191,7 +191,7 @@ class RssFeedController extends PublicController
                 break;
 
             case 'products':
-                if (! is_plugin_active('ecommerce')) {
+                if (! is_plugin_active('ecommerce') || ! function_exists('get_products')) {
                     abort(404);
                 }
 
