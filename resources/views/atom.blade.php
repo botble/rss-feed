@@ -1,4 +1,4 @@
-<?= '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL ?>
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>' . PHP_EOL ?>
 <feed
     xmlns="http://www.w3.org/2005/Atom"
     xml:lang="{{ $meta['language'] }}"

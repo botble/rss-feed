@@ -45,7 +45,9 @@ class RssFeed
 
     public function renderFeedItems(Collection $items, string $title, string $description): Feed
     {
-        return new Feed($title, $items, request()->url(), 'plugins/rss-feed::rss', $description, 'en-US');
+        $locale = is_plugin_active('language') ? Language::getCurrentLocaleCode() : 'en-US';
+
+        return new Feed($title, $items, request()->url(), 'plugins/rss-feed::rss', $description, $locale);
     }
 
     public function remoteFilesize(string $url): int

@@ -25,7 +25,7 @@ class RssFeedServiceProvider extends ServiceProvider
             ->loadRoutes()
             ->loadAndPublishViews();
 
-        $this->app['events']->listen(RouteMatched::class, function () {
+        $this->app['events']->listen(RouteMatched::class, function (): void {
             if (is_plugin_active('blog')) {
                 RssFeed::addFeedLink(
                     route('feeds.show', ['name' => 'posts']),

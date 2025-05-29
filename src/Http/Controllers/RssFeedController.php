@@ -23,13 +23,10 @@ class RssFeedController extends PublicController
 
         switch ($name) {
             case 'posts':
-                if (! is_plugin_active('blog')) {
-                    abort(404);
-                }
+                abort_unless(is_plugin_active('blog'), 404);
 
                 $data = Post::query()
-                    ->wherePublished()
-                    ->orderByDesc('created_at')
+                    ->wherePublished()->latest()
                     ->take(20)
                     ->get();
 
@@ -72,9 +69,7 @@ class RssFeedController extends PublicController
                 break;
 
             case 'jobs':
-                if (! is_plugin_active('job-board') || ! class_exists(Job::class)) {
-                    abort(404);
-                }
+                abort_if(! is_plugin_active('job-board') || ! class_exists(Job::class), 404);
 
                 $jobs = Job::query()
                     ->active()
@@ -110,9 +105,7 @@ class RssFeedController extends PublicController
                 break;
 
             case 'properties':
-                if (! is_plugin_active('real-estate') || ! interface_exists(PropertyInterface::class)) {
-                    abort(404);
-                }
+                abort_if(! is_plugin_active('real-estate') || ! interface_exists(PropertyInterface::class), 404);
 
                 $label = __('Properties');
 
@@ -149,9 +142,7 @@ class RssFeedController extends PublicController
                 break;
 
             case 'projects':
-                if (! is_plugin_active('real-estate') || ! interface_exists(ProjectInterface::class)) {
-                    abort(404);
-                }
+                abort_if(! is_plugin_active('real-estate') || ! interface_exists(ProjectInterface::class), 404);
 
                 $label = __('Projects');
 
@@ -191,9 +182,7 @@ class RssFeedController extends PublicController
                 break;
 
             case 'products':
-                if (! is_plugin_active('ecommerce') || ! function_exists('get_products')) {
-                    abort(404);
-                }
+                abort_if(! is_plugin_active('ecommerce') || ! function_exists('get_products'), 404);
 
                 $label = __('Products');
 
@@ -224,14 +213,10 @@ class RssFeedController extends PublicController
             default:
                 $feedItems = apply_filters('rss_feed_items', $feedItems, $name);
 
-                if ($feedItems->isEmpty()) {
-                    abort(404);
-                }
+                abort_if($feedItems->isEmpty(), 404);
         }
 
-        if (! $label || $feedItems->isEmpty()) {
-            abort(404);
-        }
+        abort_if(! $label || $feedItems->isEmpty(), 404);
 
         return RssFeed::renderFeedItems(
             $feedItems,
