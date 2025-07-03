@@ -39,7 +39,7 @@ class RssFeedController extends PublicController
 
                     $category = $item->categories()->value('name');
 
-                    $author = (string) $item->author?->name;
+                    $author = (string) $item->author?->name ?: Theme::getSiteTitle();
 
                     $feedItem = FeedItem::create()
                         ->id($item->getKey())

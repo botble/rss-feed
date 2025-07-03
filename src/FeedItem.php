@@ -23,17 +23,17 @@ class FeedItem
 
     protected string $link;
 
-    protected string $enclosure;
+    protected ?string $enclosure = null;
 
-    protected string $image;
+    protected ?string $image = null;
 
-    protected int $enclosureLength;
+    protected ?int $enclosureLength = null;
 
-    protected string $enclosureType;
+    protected ?string $enclosureType = null;
 
-    protected string $authorName;
+    protected ?string $authorName = null;
 
-    protected string $authorEmail;
+    protected ?string $authorEmail = null;
 
     protected array $category = [];
 
