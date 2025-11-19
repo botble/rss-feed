@@ -64,7 +64,7 @@ class RssFeedController extends PublicController
                     $feedItems[] = $feedItem;
                 }
 
-                $label = __('Posts');
+                $label = trans('plugins/rss-feed::rss-feed.posts');
 
                 break;
 
@@ -100,14 +100,14 @@ class RssFeedController extends PublicController
                     $feedItems[] = $feedItem;
                 }
 
-                $label = __('Jobs');
+                $label = trans('plugins/rss-feed::rss-feed.jobs');
 
                 break;
 
             case 'properties':
                 abort_if(! is_plugin_active('real-estate') || ! interface_exists(PropertyInterface::class), 404);
 
-                $label = __('Properties');
+                $label = trans('plugins/rss-feed::rss-feed.properties');
 
                 $data = app(PropertyInterface::class)->getProperties([], [
                     'take' => 20,
@@ -144,7 +144,7 @@ class RssFeedController extends PublicController
             case 'projects':
                 abort_if(! is_plugin_active('real-estate') || ! interface_exists(ProjectInterface::class), 404);
 
-                $label = __('Projects');
+                $label = trans('plugins/rss-feed::rss-feed.projects');
 
                 $data = app(ProjectInterface::class)->getProjects(
                     [],
@@ -184,7 +184,7 @@ class RssFeedController extends PublicController
             case 'products':
                 abort_if(! is_plugin_active('ecommerce') || ! function_exists('get_products'), 404);
 
-                $label = __('Products');
+                $label = trans('plugins/rss-feed::rss-feed.products');
 
                 $products = get_products([
                     'take' => 20,
@@ -220,8 +220,8 @@ class RssFeedController extends PublicController
 
         return RssFeed::renderFeedItems(
             $feedItems,
-            __(':name feed', ['name' => $label]),
-            __('Latest posts from :site_title', ['site_title' => Theme::getSiteTitle()])
+            trans('plugins/rss-feed::rss-feed.name_feed', ['name' => $label]),
+            trans('plugins/rss-feed::rss-feed.latest_posts_from_site_title', ['site_title' => Theme::getSiteTitle()])
         );
     }
 }

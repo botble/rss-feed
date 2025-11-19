@@ -22,6 +22,7 @@ class RssFeedServiceProvider extends ServiceProvider
         $this
             ->setNamespace('plugins/rss-feed')
             ->loadAndPublishConfigurations(['rss-feed'])
+            ->loadAndPublishTranslations()
             ->loadRoutes()
             ->loadAndPublishViews();
 
@@ -29,33 +30,33 @@ class RssFeedServiceProvider extends ServiceProvider
             if (is_plugin_active('blog')) {
                 RssFeed::addFeedLink(
                     route('feeds.show', ['name' => 'posts']),
-                    __(':name feed', ['name' => __('Posts')])
+                    trans('plugins/rss-feed::rss-feed.name_feed', ['name' => trans('plugins/rss-feed::rss-feed.posts')])
                 );
             }
 
             if (is_plugin_active('job-board')) {
                 RssFeed::addFeedLink(
                     route('feeds.show', ['name' => 'jobs']),
-                    __(':name feed', ['name' => __('Jobs')])
+                    trans('plugins/rss-feed::rss-feed.name_feed', ['name' => trans('plugins/rss-feed::rss-feed.jobs')])
                 );
             }
 
             if (is_plugin_active('real-estate')) {
                 RssFeed::addFeedLink(
                     route('feeds.show', ['name' => 'properties']),
-                    __(':name feed', ['name' => __('Properties')])
+                    trans('plugins/rss-feed::rss-feed.name_feed', ['name' => trans('plugins/rss-feed::rss-feed.properties')])
                 );
 
                 RssFeed::addFeedLink(
                     route('feeds.show', ['name' => 'projects']),
-                    __(':name feed', ['name' => __('Projects')])
+                    trans('plugins/rss-feed::rss-feed.name_feed', ['name' => trans('plugins/rss-feed::rss-feed.projects')])
                 );
             }
 
             if (is_plugin_active('ecommerce')) {
                 RssFeed::addFeedLink(
                     route('feeds.show', ['name' => 'products']),
-                    __(':name feed', ['name' => __('Products')])
+                    trans('plugins/rss-feed::rss-feed.name_feed', ['name' => trans('plugins/rss-feed::rss-feed.products')])
                 );
             }
 
