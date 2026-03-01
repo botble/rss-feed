@@ -73,6 +73,7 @@ class RssFeedController extends PublicController
 
                 $jobs = Job::query()
                     ->active()
+                    ->latest()
                     ->take(20)
                     ->with('author')
                     ->get();
